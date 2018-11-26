@@ -157,7 +157,7 @@ body, html {
                                    
 
                                     $result3 = mysqli_query($link, "insert into Reporte (idUs, Calle, Latitud, Longitud, Colonia, Imagen, Descripcion)
-                                    values('$fi','$calle','$lat', '$long', '$col', '$im', '$des')");//Query datos de los alumnos*/  
+                                    values('$fi','$calle','$lat', '$long', '$col', '$im', '$des')");
 
 
                                     mysqli_free_result($result2);

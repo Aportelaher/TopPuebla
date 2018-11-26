@@ -141,16 +141,19 @@ body, html {
                                   {
                                       $titulo = $_POST['titulo'];
                                       $descripcion = $_POST['descripcion'];
-                                      $id_usuario = $_SESSION['id_usuario'];
+                                      $idus = $_SESSION['id_usuario'];
                               
                                       require_once 'config.php';
 
                                       $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
                                       mysqli_select_db($link,$database); 
 
-                                      //$result2 = mysqli_query($link, "insert * from Reporte");
+                                      $result2 = mysqli_query($link, "insert into Publicacion (id_usuario, titulo, descripcion)
+                                    values('$idus','$titulo','$descripcion')");
 
-                        
+                                       mysqli_free_result($result2);
+                                      mysqli_close($link); 
+
                                     }
                             ?>
                         </div>
