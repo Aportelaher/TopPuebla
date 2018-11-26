@@ -74,7 +74,7 @@ body, html {
                       <a class="nav-link scroll-link" href="crearPublicacion.php">Topes</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link scroll-link" href="crearPublicacion.php">Reportes</a>
+                      <a class="nav-link scroll-link" href="ReporteAdmin.php">Reportes</a>
                   </li>
                 	<li class="nav-item">
 	                    <a class="nav-link scroll-link" href="crearPublicacion.php">Realizar Publicación</a>
