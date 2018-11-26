@@ -16,6 +16,7 @@
 				echo "Se ha creado una tabla";
 			} else {
 				echo "Fallo:no se ha creado la tabla ".$this->conexion->error;
+				
 			}
 		}
 		//Guardar nuevos datos en la base de datos
