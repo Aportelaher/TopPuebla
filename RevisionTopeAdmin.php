@@ -1,11 +1,8 @@
 <?php
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (!isset($_SESSION['id_usuario'])) 
+    {
         header("Location:index.php");
-    }else{
-        if ($_SESSION['tipo'] == 1) {
-            header("Location:indexU.php");
-        }
     }
 ?>
 <html>
@@ -71,7 +68,9 @@ body, html {
 </style>
 </head>
 <body onload="initialize();">
- <!-- Top menu -->
+
+
+<!-- Top menu -->
     <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
         <div class="container">
             <a class="navbar-brand" href="indexAdmin.php">TopPuebla</a>
@@ -118,100 +117,71 @@ body, html {
 
 <div>
 
-    <br><br>
-    <h1 align="center" style="color:white;">Seleccione la Localización del Tope</h1>
-
-    <div id="map_canvas" style="width: auto; height: 300px;">
-    </div>
-</div>
-
+    <br><br><br><br><br>
 
     <div class="container registro">
         <div class="row">
             <div class="col-md-12">
-                <h2 style="text-align: center;">Agrega la Información del Tope</h2>
+                <h2 style="text-align: center;">El tope ha sido modificado</h2>
+                <h2 style="text-align: center;">con los siguientes Datos: </h2><br>
             </div>
         </div>
-        <?php
-            $id_reporte = $_GET['id_reporte'];
-            require_once 'config.php';
-            require_once 'conexion.php';
-            $base = new dbmysqli($hostname,$username,$password,$database);
-            $query="SELECT * FROM tope where id_tope = $id_reporte";
-            $result = $base->ExecuteQuery($query);
-            if($result)
-            {
-                if ($row=$base->GetRows($result))
-                {            $id_usuario = $row['1'];
-            $Calle = $row['2'];
-            $Latitud = $row['3'];
-            $Longitud = $row['4'];
-            $Colonia = $row['5'];
-            $Imagen = $row['6'];
-            $Descripcion = $row['7'];
-            $base->SetFreeResult($result);
-        }else
-        {
-            echo "<h3>Error generando la consulta</h3>";
-        }
-    }
-        ?>
-
         <div class="row ingredientes">
             <div class="col-md-12">
-                <form method="POST" action="RevisionTopeAdmin.php?id_reporte=<?php echo($id_reporte )?>" enctype="multipart/form-data" autocomplete="off">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Latitud</label>
-                                    <input type="text" class="form-control" name="latitud" id="txtLatitud"  required value="<?php echo "$Latitud"; ?>">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Longitud</label>
-                                    <input id="txtLongitud" type="text" class="form-control" name="longitud" required value="<?php echo "$Longitud"; ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="nombre">Calle</label>
-                                    <input type="text" class="form-control" name="calles" id="calle" placeholder="Calle" required value="<?php echo "$Calle" ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="nombre">Colonia</label>
-                                    <input type="text" class="form-control" name="colonias" id="Colonia"placeholder="Colonia" required value="<?php echo "$Colonia" ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="comment">Descripción</label>
-                                    <textarea class="form-control" rows="5" name="descripciones" id="descripcion" required><?php echo(utf8_encode($Descripcion)) ?></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="comment">Imagen</label>
-                                    <br>
-                                        <input type="file" name="archivo" value="<?php echo "$Imagen" ?>">
-                                </div>
-                            </div>
-                        </div>
-                    <br><button type="submit" class="btn btn-primary">Editar Tope</button>
-                </form>
+
+                <?php 
+                $id_tope = $_GET['id_reporte'];
+                $usu=$_SESSION['username'];
+                $lat=$_POST['latitud'];
+                $long=$_POST['longitud'];
+                $calle=$_POST['calles'];
+                $col=$_POST['colonias'];
+                $des=$_POST['descripciones'];
+                $im=$_FILES['archivo']['name'];
+
+                                    $ruta = "Topes/".$_FILES['archivo']['name'];
+
+                                    if(is_uploaded_file($_FILES['archivo']['tmp_name']))
+                                    {
+                                        copy($_FILES['archivo']['tmp_name'], $ruta);
+                                    }
+                                    require_once 'config.php';
+
+                                    $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
+                                    mysqli_select_db($link, $database); 
+
+                                    $result2 = mysqli_query($link, "select * from Usuario where username='$usu'");
+                                    $row= mysqli_fetch_array($result2);         
+                                    $fi = $row["id_usuario"];
+
+                                   if (isset($im)) {
+                                       $update = "Update tope SET Calle = '$calle', Latitud = '$lat', Longitud = '$long', Colonia = '$col' , Imagen = '$im', Desripcion = '$des' WHERE id_tope = '$id_tope'";
+                                   }else{
+                                    $update = "Update tope SET Calle = '$calle', Latitud = '$lat', Longitud = '$long', Colonia = '$col', Desripcion = '$des' WHERE id_tope = '$id_tope'";  
+                                     
+                                   }
+                                   
+                                    $result3 = mysqli_query($link, $update);
+
+
+                                    mysqli_free_result($result2);
+                                    mysqli_close($link); 
+
+
+                ?>
+                
+                <h4 style="text-align: center;">Longitud: <?php echo ("$lat"); ?></h4>
+                <h4 style="text-align: center;">Latitud: <?php echo ("$long"); ?> </h4>
+                <h4 style="text-align: center;">Calle: <?php echo ("$calle"); ?></h4>
+                <h4 style="text-align: center;">Colonia: <?php echo ("$col"); ?></h4>
+                <h4 style="text-align: center;">Descripicion: <?php echo ("$des"); ?></h4>
+                <h4 style="text-align: center;">Imagen: <br><?php echo ("<img src = 'Topes/$im' width=400 height=400 <br><hr>" );?> </h4>
+                <h4 style="text-align: center;">Id de Usuario Colaborador: <?php echo ("$fi"); ?></h4>
             </div>
         </div>
     </div>
+
+    
 
     <script>
 // Initialize and add the map
@@ -232,8 +202,7 @@ function initialize() {
             // adds a listener to the marker
             // gets the coords when drag event ends
             // then updates the input with the new coords
-            google.maps.event.addListener(vMarker, 'dragend', function (evt) 
-            {
+            google.maps.event.addListener(vMarker, 'dragend', function (evt) {
                 $("#txtLatitud").val(evt.latLng.lat().toFixed(6));
                 $("#txtLongitud").val(evt.latLng.lng().toFixed(6));
 

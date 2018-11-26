@@ -73,7 +73,7 @@
 			echo "DELETE FROM $tabla WHERE $field = $campoydato";
 			if($this->conexion->query("DELETE FROM $tabla WHERE $field = $campoydato") === TRUE){
 				if(mysqli_affected_rows($this->conexion)){
-					echo "<script>alert('Evento eliminado correctamente');</script>";
+					
 					echo "Borrado correctamente";
 				} else{
 					echo "Fallo no se pudo eliminar el registro" . $this->conexion->error;
