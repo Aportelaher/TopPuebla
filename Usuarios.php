@@ -1,19 +1,30 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location:index.php");
+    }else{
+        if ($_SESSION['tipo'] == 1) {
+            header("Location:indexU.php");
+        }
+    }
+?>
+
+
 <html>
 <head>
-	<meta charset="utf-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TopPuebla</title>
-	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TopPuebla</title>
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
     <style>
 body, html {
   height: 100%;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  color: white;
 }
 
 * {
@@ -22,8 +33,8 @@ body, html {
 
 .bg-image {
   /* Full height */
-  height: 125%; 
-
+  height: 100%; 
+  
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
@@ -31,16 +42,16 @@ body, html {
 }
 
 /* Images used */
-.img1 { background-image: url("img/taco.jpg"); }
+.img1 { background-image: url("img/PatoZensai-NikiNakayama.png"); }
 .img2 { background-image: url("img/ArrozNegroYLechedeNueces-AlexAtala.png"); }
-.img3 { background-image: url("img/CaminataEnElBosque-DominiqueCrenn.png"); }
+.img3 { background-image: url("img/CosechaPasachámac-Virgilio.png"); }
 .img4 { background-image: url("img/MoleMadre-EnriqueOlvera.png"); }
 
 
 /* Position text in the middle of the page/image */
 .bg-text {
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.8); /* Black w/opacity/see-through */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
   font-size: 80px;
@@ -53,103 +64,121 @@ body, html {
   width: 1500px;
   padding: 20px;
   text-align: center;
+
 }
+
+  #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
 </style>
-    
 </head>
-<body>
-	<!-- Top menu -->
-	<nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
-    	<div class="container">
-	        <a class="navbar-brand" href="index.php">TopPuebla</a>
-        	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	            <span class="navbar-toggler-icon"></span>
-        	</button>
-        	<div class="collapse navbar-collapse" id="navbarNav">
-	            <ul class="navbar-nav">
-                	<li class="nav-item">
-	                    <a class="nav-link scroll-link" href="consulta.php">Consulta de receta</a>
-                	</li>
-                	<li class="nav-item">
-	                    <a class="nav-link scroll-link" href="noticias.php">Noticias</a>
-                	</li>
-	                <li class="nav-item">
-                    	<a class="nav-link scroll-link" href="acerca.php">Acerca de</a>
-                	</li>
-                	
-            	</ul>
+<body onload="initialize();">
+    <!-- Top menu -->
+    <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
+        <div class="container">
+            <a class="navbar-brand" href="indexAdmin.php">TopPuebla</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                   <li class="nav-item">
+                      <a class="nav-link scroll-link" href="topesAdmin.php">Topes</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link scroll-link" href="ReporteAdmin.php">Reportes</a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link scroll-link" href="crearPublicacion.php">Realizar Publicación</a>
+                    </li>
+                  <li class="nav-item">
+                      <a class="nav-link scroll-link" href="Usuarios.php">Usuarios</a>
+                  </li>
+                </ul>
 
 <!--https://bootsnipp.com/snippets/featured/fancy-navbar-login-sign-in-form-->
-            	
-            	<span class="ml-auto navbar-nav">
-            		<li class="nav-item dropdown">
-            			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            				Iniciar sesión
-            			</a>
-            			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp">
-            				<div class="row">
-            					<div class="col-md-12">
-            						<form class="form" role="form" method="post" action="validalogin.php" accept-charset="UTF-8" id="login-nav">
-										<div class="form-group">
-											 <label class="sr-only" for="email">Correo electrónico</label>
-											 <input type="email" class="form-control" name="mail" id="email" placeholder="Correo electrónico" required>
-										</div>
-										<div class="form-group">
-											 <label class="sr-only" for="pass">Contraseña</label>
-											 <input type="password" class="form-control" name="pass" id="pass" placeholder="Contraseña" required>
-										</div>
-										<div class="form-group">
-											 <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-										</div>
-								 </form>
-            					</div>
-            				</div>
-            				<div class="row">
-            					<div class="col-md-12">
-            						<div class="bottom text-center">
-            							¿Aún no estas registrado? <a href="registro.php"><b>Registrarse</b></a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            		</li>
-            	</span>        	
-            </div>
-    	</div>
-	</nav>
+                
+                <span class="ml-auto navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php echo ($_SESSION['username']); ?>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="enlacesDrop" href="perfil.php">Mi perfil</a><br>
+                                    <a class="enlacesDrop" href="cerrarsesion.php">Cerrar sesión</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </span>
 
-    <div class="bg-image img1">
-
-    <div class="container registro">
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Noticias</h3>
-                <?php
-                    require_once 'config.php';
-                    require_once 'conexion.php';
-                    $base = new dbmysqli($hostname,$username,$password,$database);
-                    $query="SELECT id_noticia, titulo, descripcion FROM noticia";
-                    $result = $base->ExecuteQuery($query);
-                    if($result){
-                        while ($row=$base->GetRows($result)){
-                            $id_noticia  = $row[0];
-                            $titulo = $row[1];
-                            $descripcion = $row[2];
-                            ?>
-                            <a class="enlace-noticia" href="verNoticia.php?id_noticia=<?php echo ($id_noticia) ?>"><?php echo ($row['1']) ?></a><br>
-                            <?php
-                        }
-                        $base->SetFreeResult($result);
-                    }else{
-                        echo "<h3>Error generando la consulta</h3>";
-                    }
-                ?>
             </div>
         </div>
-    </div>
+    </nav>
+
+<div>
+
+    <br><br>
+    <h1 align="center" style="color:white;">Topes Aprobados</h1>
+
 </div>
-	<script src="dist/jquery/jquery.slim.min.js"></script>
-	<script src="dist/js/bootstrap.min.js"></script>
-	<script src="dist/popper/umd/popper.min.js"></script>
+<center>
+  <table border="20">
+  <tr>
+    <td>Nombre</td>
+    <td>Usuario</td>
+    <td>Correo</td>
+
+  </tr>
+    <?php
+      require_once 'config.php';
+                            $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
+                            mysqli_select_db($link, $database); 
+
+                            $result = mysqli_query($link, "select * from Usuario");
+
+                            while($row= mysqli_fetch_array($result))
+                            {
+                                $nom = $row["nombre"];
+                                $usu = $row["username"];
+                                $cor = $row["correo"];
+                                $id_usuario = $row["id_usuario"];
+
+                                ?>
+                                <tr>
+                                  <td><?php echo "$nom"; ?></td>
+                                  <td><?php echo "$usu"; ?></td>
+                                  <td><?php echo "$cor"; ?></td>
+                                  <td><a href="editarUsuario.php?id_usuario=<?php echo "$id_usuario" ?>"><img src="img/editar.png"></a></td>
+                                  <td><a href="eliminarUsuario.php?id_usuario=<?php echo "$id_usuario" ?>"><img src="img/eliminar.png"></a></td>
+                                </tr>
+                                <?php
+                            }
+
+                            echo ("</table>");
+
+                            mysqli_free_result($result);
+                            mysqli_close($link);
+                            //update pelicula set imagen=('/imagen6.jpg') where id_pelicula=6;
+                        ?>
+</center>
+
+
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxe7Nb-cGjLAbUOOX61xW9M1P1_7k7qk&callback=initMap">
+    </script>
+
+
+
+
+    <script src="dist/jquery/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="dist/popper/umd/popper.min.js"></script>
 </body>
 </html>

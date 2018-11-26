@@ -8,8 +8,6 @@
         }
     }
 ?>
-
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -24,7 +22,6 @@ body, html {
   height: 100%;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  color: white;
 }
 
 * {
@@ -74,7 +71,9 @@ body, html {
 </style>
 </head>
 <body onload="initialize();">
-    <!-- Top menu -->
+
+
+<!-- Top menu -->
     <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
         <div class="container">
             <a class="navbar-brand" href="indexAdmin.php">TopPuebla</a>
@@ -121,97 +120,69 @@ body, html {
 
 <div>
 
-    <br><br>
-    <h1 align="center" style="color:white;">Topes Aprobados</h1>
+    <br><br><br><br><br>
 
-</div>
-<center>
-  <table border="20">
-  <tr>
-    <td>Letra</td>
-    <td>Calle</td>>
-    <td>Colonia</td>
-    <td>Imagen</td>
-    <td>Descripcion</td>
-    <td>Editar</td>
-    <td>Eliminar</td>
-  </tr>
-    <?php
-      require_once 'config.php';
-                            $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
-                            mysqli_select_db($link, $database); 
+    <div class="container registro">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="text-align: center;">El Usuario ha sido modificado</h2>
+                <h2 style="text-align: center;">con los siguientes Datos: </h2><br>
+            </div>
+        </div>
+        <div class="row ingredientes">
+            <div class="col-md-12">
 
-                            $result = mysqli_query($link, "select * from tope");
-                            $letras = 65;
+                <?php 
 
-                            while($row= mysqli_fetch_array($result))
-                            {
-                                $lat = $row["Latitud"];
-                                $long = $row["Longitud"];
-                                $col = $row["Colonia"];
-                                $calle = $row["Calle"];
-                                $im = $row["Imagen"];
-                                $des = $row["Desripcion"];
-                                $letra = chr($letras);
-                                $id_reporte = $row['id_tope'];
+                $id_usu = $_GET['id_usuario'];
+                $nom = $_POST['nombre'];
+                $usu = $_POST['usuario'];
+                $cor = $_POST['correos'];
 
-                                ?>
-                                <tr>
-                                  <td><?php echo "$letras"; ?></td>
-                                  <td><?php echo "$calle"; ?></td>
-                                  <td><?php echo "$col"; ?></td>
-                                  <td><img src = Topes/<?php echo "$im";?> width=200 height=150/></td> 
-                                  <td><?php echo "$des"; ?></td>
-                                  <td><a href="editarTope.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/editar.png"></a></td>
-                                  <td><a href="eliminarTope.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/eliminar.png"></a></td>
-                                </tr>
-                                <?php
 
-                                $letras = $letras+1;
+                                    require_once 'config.php';
 
-                            }
+                                    $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
+                                    mysqli_select_db($link, $database); 
 
-                            echo ("</table>");
 
-                            mysqli_free_result($result);
-                            mysqli_close($link);
-                            //update pelicula set imagen=('/imagen6.jpg') where id_pelicula=6;
-                        ?>
-</center>
+                                    $update = "Update Usuario SET nombre = '$nom', username = '$usu', correo = '$cor' WHERE id_usuario = '$id_usu'";  
+                                    
+                                   
+                                   
+                                    $result3 = mysqli_query($link, $update);
+                                    mysqli_free_result($result3);
+                                    mysqli_close($link); 
+
+
+                ?>
+                
+
+                <h4 style="text-align: center;">Nombre: <?php echo ("$nom"); ?></h4>
+                <h4 style="text-align: center;">Usuario: <?php echo ("$usu"); ?></h4>
+                <h4 style="text-align: center;">Correo: <?php echo ("$cor"); ?></h4>
+                <h4 style="text-align: center;">Id de Usuario Colaborador: <?php echo ("$id_usu"); ?></h4>
+            </div>
+        </div>
+    </div>
+
+    
 
     <script>
 // Initialize and add the map
-function initialize() 
-{
+function initialize() {
             // Creating map object
-            var map = new google.maps.Map(document.getElementById('map_canvas'), 
-            {
-                zoom: 15,
+            var map = new google.maps.Map(document.getElementById('map_canvas'), {
+                zoom: 17,
                 center: new google.maps.LatLng(19.005641, -98.204317),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-
             // creates a draggable marker to the given coords
-
-            var markers = locations.map(function(location, i) 
-            {
-                return new google.maps.Marker(
-                {
-                    position: location,
-                    label: labels[i % labels.length]
-                    }
-                );
+            var vMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(19.005641, -98.204317),
+                draggable: true
             });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      
-
-
 
             // adds a listener to the marker
             // gets the coords when drag event ends
@@ -228,21 +199,8 @@ function initialize()
 
             // adds the marker on the map
             vMarker.setMap(map);
-            }
-
-            var locations = 
-                    [
-                        {lat: 19.0057767, lng: -98.2049665},
-                        {lat: 19.0042031, lng: -98.1947903},
-                        {lat: 19.0028511, lng: -98.1950426},
-                        {lat: 19.0021116, lng: -98.1964312},
-                        {lat: 19.003356, lng: -98.1991288},
-                    ]
-
+        }
     </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxe7Nb-cGjLAbUOOX61xW9M1P1_7k7qk&callback=initMap">
     </script>
