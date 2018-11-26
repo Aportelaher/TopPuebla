@@ -129,7 +129,7 @@ body, html {
   <table border="20">
   <tr>
     <td>Letra</td>
-    <td>Calle</td>>
+    <td>Calle</td>
     <td>Colonia</td>
     <td>Imagen</td>
     <td>Descripcion</td>

@@ -118,20 +118,17 @@ body, html {
             </div>
         </div>
     </nav>
-
-<div>
-
-    <br><br>
-    <h1 align="center" style="color:white;">Localización de los Reportes de Topes</h1>
-
-    <div id="map_canvas" style="width: auto; height: 300px;">
+    <div>
+      <br><br>
+      <h1 align="center" style="color:white;">Localización de los Reportes de Topes</h1>
+      <div id="map_canvas" style="width: auto; height: 300px;">
+      </div>
     </div>
-</div>
-<center>
-  <table border="20">
-  <tr>
-    <td>Letra</td>
-    <td>Calle</td>>
+    <center>
+      <table border="20">
+        <tr>
+          <td>Letra</td>
+          <td>Calle</td>
     <td>Colonia</td>
     <td>Imagen</td>
     <td>Descripcion</td>
@@ -171,13 +168,11 @@ body, html {
                                 $letras = $letras+1;
 
                             }
-
-                            echo ("</table>");
-
                             mysqli_free_result($result);
                             mysqli_close($link);
                             //update pelicula set imagen=('/imagen6.jpg') where id_pelicula=6;
                         ?>
+                      </table>
 </center>
 
     <script>
