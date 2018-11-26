@@ -124,7 +124,7 @@ body, html {
 </div>
 <center>
     <?php
-                            $link=mysqli_connect("localhost", "hugo", "aioris12345");//Query de la base de Datos
+                            $link=mysqli_connect("localhost", "root", "12345");//Query de la base de Datos
                             mysqli_select_db($link, "TopPuebla"); 
 
                             $result2 = mysqli_query($link, "select * from Reporte");
@@ -154,7 +154,7 @@ body, html {
 
                             echo ("</table>");
 
-                            mysqli_free_result($result);
+                            mysqli_free_result($result2);
                             mysqli_close($link);
                             //update pelicula set imagen=('/imagen6.jpg') where id_pelicula=6;
                         ?>
