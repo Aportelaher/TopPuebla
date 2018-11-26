@@ -2,6 +2,10 @@
     session_start();
     if (!isset($_SESSION['id_usuario'])) {
         header("Location:index.php");
+    }else{
+        if ($_SESSION['tipo'] == 1) {
+            header("Location:indexU.php");
+        }
     }
 ?>
 <html>
