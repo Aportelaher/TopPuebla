@@ -147,9 +147,9 @@ body, html {
                                         copy($_FILES['archivo']['tmp_name'], $ruta);
                                     }
                                     require_once 'config.php';
-                                    
-                                    $link=mysqli_connect("localhost", "hugo", "aioris12345");//Query de la base de Datos
-                                    mysqli_select_db($link, "TopPuebla"); 
+
+                                    $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
+                                    mysqli_select_db($link, $database); 
 
                                     $result2 = mysqli_query($link, "select * from Usuario where username='$usu'");
                                     $row= mysqli_fetch_array($result2);         
