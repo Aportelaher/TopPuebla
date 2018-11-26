@@ -93,7 +93,7 @@ body, html {
                         <a class="nav-link scroll-link" href="crearPublicacion.php">Realizar Publicación</a>
                     </li>
                   <li class="nav-item">
-                      <a class="nav-link scroll-link" href="agregaAdmin.php">Usuarios</a>
+                      <a class="nav-link scroll-link" href="Usuarios.php">Usuarios</a>
                   </li>
                 </ul>
 
