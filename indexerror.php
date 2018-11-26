@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Uel Uelik</title>
+    <title>TopPuebla</title>
     <link rel="stylesheet" href="dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -18,17 +18,14 @@
     <!-- Top menu -->
     <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
         <div class="container">
-            <a class="navbar-brand" href="index.php">UEL UELIK</a>
+            <a class="navbar-brand" href="index.php">TopPuebla</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link scroll-link" href="consulta.php">Consulta de receta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link scroll-link" href="noticias.php">Noticias</a>
+                        <a class="nav-link scroll-link" href="consulta.php">Consulta de Topes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link scroll-link" href="acerca.php">Acerca de</a>
