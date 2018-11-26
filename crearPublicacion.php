@@ -30,7 +30,7 @@ body, html {
 
 .bg-image {
   /* Full height */
-  height: 100%; 
+  height: 80%; 
   
   /* Center and scale the image nicely */
   background-position: center;
@@ -39,10 +39,8 @@ body, html {
 }
 
 /* Images used */
-.img1 { background-image: url("img/navidad.jpg"); } 
-.img2 { background-image: url("img/MoleMadre-EnriqueOlvera.png"); }
-.img3 { background-image: url("img/ArrozNegroYLechedeNueces-AlexAtala.png"); } 
-.img4 { background-image: url("img/PescaCercana-Virgilio.png"); } 
+.img1 { background-image: url("img/Puebla15.jpg"); } 
+
 
 
 /* Position text in the middle of the page/image */
@@ -109,7 +107,7 @@ body, html {
           </div>
       </div>
   </nav>
-
+  <br><br><br><br>
   <div class="bg-image img1">
   <div id="page-wrapper">
                                     <!--row -->
@@ -150,6 +148,8 @@ body, html {
 
                                       $result2 = mysqli_query($link, "insert into Publicacion (id_usuario, titulo, descripcion)
                                     values('$idus','$titulo','$descripcion')");
+
+                                      echo "<br>¡Nueva entrada agregada!";
 
                                        mysqli_free_result($result2);
                                       mysqli_close($link); 
