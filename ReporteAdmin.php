@@ -128,8 +128,9 @@ body, html {
 </div>
 <center>
     <?php
-                            $link=mysqli_connect("localhost", "hugo", "aioris12345");//Query de la base de Datos
-                            mysqli_select_db($link, "TopPuebla"); 
+      require_once 'config.php';
+                            $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
+                            mysqli_select_db($link, $database); 
 
                             $result = mysqli_query($link, "select * from Reporte");
 
