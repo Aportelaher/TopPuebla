@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+  	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<title>Uel Uelik</title>
+	<link rel='stylesheet' href='dist/css/bootstrap.min.css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+	<link rel='stylesheet' href='css/style.css'>
+</head>
+<body>
+
+	<div class='row'>
+		<div class='col-sm-4'>
+			<div class='form-group'>
+				<input type='text' class='form-control' name='ingredientes[]' placeholder='Nombre' required>
+			</div>
+		</div>
+		<div class='col-sm-4'>
+			<div class='form-group'>
+				<input type='text' class='form-control' name='gramaje[]' placeholder='Gramaje' required>
+			</div>
+		</div>
+			<div class='col-sm-4'>
+				<div class='form-group'>
+					<input type='text' class='form-control' name='unidad[]' placeholder='Unidad' required>
+				</div>
+			</div>
+
+    <script src='dist/jquery/jquery.slim.min.js'></script>
+	<script src='dist/js/bootstrap.min.js'></script>
+	<script src='dist/popper/umd/popper.min.js'></script>
+</body>
+</html>
+
+<select class='custom-select' name='unidad[]' required><option value=''>Seleccione una unidad</option>
+                                        <option value='Pizca'>Pizca</option>
+                                        <option value='Cucharada'>Cucharada</option>
+                                        <option value='Onza'>Onza</option>
+                                        <option value='Taza'>Taza</option>
+                                        <option value='Litro'>Litro</option>
+                                        <option value='Gramos'>Gramos</option>
+                                        <option value='Libras'>Libras</option>
+                                        <option value='Libras'>Libras</option>
+                                        <option value='Al gusto'>Al gusto</option>
+                                    </select>

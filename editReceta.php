@@ -1,0 +1,269 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location:index.php");
+    }
+?>
+<html>
+<head>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Uel Uelik</title>
+	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+
+     <style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-image {
+  /* Full height */
+  height: 150%; 
+  
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Images used */
+.img1 { background-image: url("img/LeChocolat-DominiqueCrenn.png"); }
+.img2 { background-image: url("img/ColoresDelAmazonas-Virgilio.png"); }
+.img3 { background-image: url("img/CosechaPasachamac-Virgilio.png"); }
+.img4 { background-image: url("img/MoleMadre-EnriqueOlvera.png"); }
+
+
+/* Position text in the middle of the page/image */
+.bg-text {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  font-size: 80px;
+  border: 10px solid #f1f1f1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 1500px;
+  padding: 20px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+	<!-- Top menu -->
+	<nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
+    	<div class="container">
+	        <a class="navbar-brand" href="indexU.php">UEL UELIK</a>
+        	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+        	</button>
+        	<div class="collapse navbar-collapse" id="navbarNav">
+	            <ul class="navbar-nav">
+                	<li class="nav-item">
+	                    <a class="nav-link scroll-link" href="consultaU.php">Consulta de receta</a>
+                	</li>
+                	<li class="nav-item">
+	                    <a class="nav-link scroll-link" href="noticiasU.php">Noticias</a>
+                	</li>
+	                <li class="nav-item">
+                    	<a class="nav-link scroll-link" href="acercaU.php">Acerca de</a>
+                	</li>
+                	<li class="nav-item">
+                        <a class="nav-link scroll-link" href="crearReceta.php">Crear receta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link scroll-link" href="editarReceta.php">Editar receta</a>
+                    </li>
+            	</ul>
+                <span class="ml-auto navbar-nav">
+            		<li class="nav-item dropdown">
+            			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            				<?php echo ($_SESSION['username']); ?>
+            			</a>
+            			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp-2">
+            				<div class="row">
+            					<div class="col-md-12">
+            						<a class="enlacesDrop" href="perfil.php">Mi perfil</a><br>
+                                    <a class="enlacesDrop" href="cerrarsesion.php">Cerrar sesión</a>
+            					</div>
+            				</div>
+            			</div>
+            		</li>
+            	</span>
+        	</div>
+    	</div>
+	</nav>
+
+    <div class="bg-image img3">
+    <div class="container registro">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="text-align: center;">Editar receta</h2>
+            </div>
+        </div>
+        <div class="row ingredientes">
+            <div class="col-md-12">
+                <?php
+                    $id_receta = $_GET['id_receta'];
+                    require_once 'config.php';
+                    require_once 'conexion.php';
+                    $base = new dbmysqli($hostname,$username,$password,$database);
+                    $id_receta = $_GET['id_receta'];
+                    $sql = "SELECT nombre,preparacion,comentario FROM  receta WHERE id_receta = '$id_receta'";
+                    $result = $base->ExecuteQuery($sql);
+                    if($result){
+                        if ($row=$base->GetRows($result)){
+                            $nombre = $row[0];
+                            $preparacion = $row[1];
+                            $comentario = $row[2];
+                        }
+                        $base->SetFreeResult($result);
+                    }else{
+                        echo "<h3>Error generando la consulta</h3>";
+                    }
+                ?>
+                <form method="POST" action="validaReceta.php" enctype="multipart/form-data">
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre de la receta</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre"placeholder="Nombre" value="<?php echo($nombre)?>" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label >Ingrediente</label>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="ing1">Gramaje</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="ing1">Unidad</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="quitar-ingrediente">Quitar ingrediente</label>
+                            </div>
+                        </div>
+                    <?php
+                        $sql = "SELECT nombre,cantidad FROM ingrediente WHERE id_receta = '$id_receta'";
+                        $result = $base->ExecuteQuery($sql);
+                        if($result){
+                            while ($row=$base->GetRows($result)){
+                                $nombre = $row[0];
+                                $cantidad = $row[1];
+                                ?>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" value="<?php echo($nombre)?>" name="ingrediente[]" id="ing1"placeholder="Nombre" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" value="<?php echo($cantidad)?>" name="gramaje[]" id="ing1" placeholder="Gramaje">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <select class='custom-select' name='unidad[]' required>
+                                                <option value=''>Seleccione una unidad</option>
+                                                <option value='Pizca'>Pizca</option>
+                                                <option value='Pieza'>Pieza</option>
+                                                <option value='Cucharada'>Cucharada</option>
+                                                <option value='Onza'>Onza</option>
+                                                <option value='Taza'>Taza</option>
+                                                <option value='Litro'>Litro</option>
+                                                <option value='Gramos'>Gramos</option>
+                                                <option value='Libras'>Libras</option>
+                                                <option value='Kilo'>Kilo</option>
+                                                <option value='Al gusto'>Al gusto</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class='col-sm-2 text-center'><button class='btn' onclick='eliminarIngrediente("+num_ingredientes+")'>x</button></div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            $base->SetFreeResult($result);
+                        }else{
+                            echo "<h3>Error generando la consulta</h3>";
+                        }
+                    ?>
+
+                        
+                        <div id="demo"></div>
+                        <button class="btn" onclick="agregar()">+</button> Añadir ingrediente<br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Preparación</label>
+                                    <textarea class="form-control" rows="5" name="preparacion" id="comment" required><?php echo($preparacion) ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Comentario</label>
+                                    <textarea class="form-control" rows="5" name="comment" id="comment" required><?php echo($comentario) ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <br><button type="submit" class="btn btn-primary">Añadir receta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>
+    <br>
+	<script src="dist/jquery/jquery.slim.min.js"></script>
+	<script src="dist/js/bootstrap.min.js"></script>
+	<script src="dist/popper/umd/popper.min.js"></script>
+    <script type="text/javascript">
+        var num_ingredientes = 0;
+        function agregar() {
+            num_ingredientes = num_ingredientes + 1;
+            if (num_ingredientes > 0) {
+                for (var i = 1; i < num_ingredientes; i++) {
+                    console.log(document.getElementById("demo"));
+                }
+            }
+            var ingrediente = "<div class='row' id='"+num_ingredientes+"'><div class='col-sm-4'><div class='form-group'><input type='text' class='form-control' name='ingrediente[]' placeholder='Nombre' required></div></div>";
+            var gramaje = "<div class='col-sm-3'><div class='form-group'><input type='text' class='form-control' name='gramaje[]' placeholder='Gramaje' required></div></div>";
+            var unidad = "<div class='col-sm-3'><div class='form-group'><select class='custom-select' name='unidad[]' required><option value=''>Seleccione una unidad</option><option value='Pizca'>Pizca</option><option value='Pieza'>Pieza</option><option value='Cucharada'>Cucharada</option><option value='Onza'>Onza</option><option value='Taza'>Taza</option><option value='Litro'>Litro</option><option value='Gramos'>Gramos</option><option value='Libras'>Libras</option><option value='Libras'>Libras</option><option value='Kilo'>Kilo</option><option value='Al gusto'>Al gusto</option></select></div></div>";
+            var eliminar = "<div class='col-sm-2 text-center'><button class='btn' onclick='eliminarIngrediente("+num_ingredientes+")'>x</button></div>";
+
+                            
+            //console.log(ingrediente + "" + gramaje + "" + unidad + eliminar);
+            document.getElementById("demo").innerHTML += ingrediente + "" + gramaje + "" + unidad + "" + eliminar;
+        }
+
+        function eliminarIngrediente(id) {
+            document.getElementById(id).remove();
+            num_ingredientes--;
+        }
+    </script>
+</body>
+</html>

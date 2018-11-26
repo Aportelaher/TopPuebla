@@ -1,0 +1,36 @@
+DROP DATABASE IF EXISTS TopPuebla;
+CREATE DATABASE TopPuebla;
+
+use TopPuebla;
+
+DROP TABLE IF EXISTS Usuario;
+CREATE TABLE Usuario(id_us int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+Nombre varchar(50), 
+Usuario varchar(30),
+Correo varchar(50),
+Pass varchar(20));
+
+DROP TABLE IF EXISTS Tope;
+CREATE TABLE Tope(id_tope int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+idUs int,
+Calle varchar(15),
+Num varchar(5),
+Colonia varchar(15),
+Imagen varchar(15),
+Desripcion varchar(100),
+FOREIGN KEY(idUs) REFERENCES Usuario(id_us) ON DELETE CASCADE ON UPDATE CASCADE);
+
+DROP TABLE IF EXISTS Reporte;
+CREATE TABLE Reporte(NoRep int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+idUs int,
+Calle varchar(15),
+Num varchar(5),
+Colonia varchar(15),
+Imagen varchar(15),
+Desripcion varchar(100),
+FOREIGN KEY(idUs) REFERENCES Usuario(id_us) ON DELETE CASCADE ON UPDATE CASCADE);
+
+DROP TABLE IF EXISTS Publicacion;
+CREATE TABLE Publicacion(idPub int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Titulo varchar(15),
+Contenido varchar(100));

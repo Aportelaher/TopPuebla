@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<style type="text/css">
+		body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ol.example li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.example li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+ol.example:hover{
+
+}
+
+	</style>
+</head>
+<body>
+<ol class='simple_with_animation list-group text-ingredientes scroll1'>
+  <li class="list-group-item">First</li>
+  <li class="list-group-item">Second</li>
+  <li class="list-group-item">Third</li>
+</ol>
+<br>
+<ol class='simple_with_animation list-group text-ingredientes scroll1'>
+  <li class="list-group-item">First</li>
+  <li class="list-group-item">Second</li>
+  <li class="list-group-item">Third</li>
+</ol>
+<script src="dist/jquery/jquery.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+	<script src="dist/popper/umd/popper.min.js"></script>
+<script src='js/jquery-sortable.min.js'></script>
+<script type="text/javascript">
+	var adjustment;
+
+$("ol.simple_with_animation").sortable({
+  group: 'simple_with_animation',
+  pullPlaceholder: false,
+  // animation on drop
+  onDrop: function  ($item, container, _super) {
+    var $clonedItem = $('<li/>').css({height: 0});
+    $item.before($clonedItem);
+    $clonedItem.animate({'height': $item.height()});
+
+    $item.animate($clonedItem.position(), function  () {
+      $clonedItem.detach();
+      _super($item, container);
+    });
+  },
+
+  // set $item relative to cursor position
+  onDragStart: function ($item, container, _super) {
+    var offset = $item.offset(),
+        pointer = container.rootGroup.pointer;
+
+    adjustment = {
+      left: pointer.left - offset.left,
+      top: pointer.top - offset.top
+    };
+
+    _super($item, container);
+  },
+  onDrag: function ($item, position) {
+    $item.css({
+      left: position.left - adjustment.left,
+      top: position.top - adjustment.top
+    });
+  }
+});
+</script>
+</body>
+
+</html>
