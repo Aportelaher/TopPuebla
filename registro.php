@@ -119,6 +119,7 @@ body, html {
             </div>
         </div>
     </div>
+    
     <div class="container registro">
         <div class="row">
             <div class="col-md-12">

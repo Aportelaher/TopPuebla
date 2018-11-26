@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Uel Uelik</title>
+	<title>TopPuebla</title>
 	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
@@ -36,10 +36,8 @@ body, html {
 }
 
 /* Images used */
-.img1 { background-image: url("img/helado.jpg"); }
-.img2 { background-image: url("img/ArrozNegroYLechedeNueces-AlexAtala.png"); }
-.img3 { background-image: url("img/CaminataEnElBosque-DominiqueCrenn.png"); }
-.img4 { background-image: url("img/MoleMadre-EnriqueOlvera.png"); }
+.img1 { background-image: url("img/Puebla14.jpg"); }
+
 
 
 /* Position text in the middle of the page/image */
@@ -48,7 +46,7 @@ body, html {
   background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
-  font-size: 80px;
+  font-size: 50px;
   border: 10px solid #f1f1f1;
   position: fixed;
   top: 50%;
@@ -64,51 +62,48 @@ body, html {
 <body>
 	<!-- Top menu -->
 	<nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
-    	<div class="container">
-	        <a class="navbar-brand" href="indexU.php">UEL UELIK</a>
-        	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	            <span class="navbar-toggler-icon"></span>
-        	</button>
-        	<div class="collapse navbar-collapse" id="navbarNav">
-	            <ul class="navbar-nav">
-                	<li class="nav-item">
-	                    <a class="nav-link scroll-link" href="consultaU.php">Consulta de receta</a>
-                	</li>
-                	<li class="nav-item">
-	                    <a class="nav-link scroll-link" href="noticiasU.php">Noticias</a>
-                	</li>
-	                <li class="nav-item">
-                    	<a class="nav-link scroll-link" href="acercaU.php">Acerca de</a>
-                	</li>
-                	<li class="nav-item">
-                        <a class="nav-link scroll-link" href="crearReceta.php">Crear receta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link scroll-link" href="editarReceta.php">Editar receta</a>
-                    </li>
-            	</ul>
+      <div class="container">
+          <a class="navbar-brand" href="indexAdmin.php">TopPuebla</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                   <li class="nav-item">
+                      <a class="nav-link scroll-link" href="crearPublicacion.php">Topes</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link scroll-link" href="ReporteAdmin.php">Reportes</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link scroll-link" href="crearPublicacion.php">Realizar Publicación</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link scroll-link" href="agregaAdmin.php">Usuarios</a>
+                  </li>
+              </ul>
 
 <!--https://bootsnipp.com/snippets/featured/fancy-navbar-login-sign-in-form-->
-            	
-            	<span class="ml-auto navbar-nav">
-            		<li class="nav-item dropdown">
-            			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            				<?php echo ($_SESSION['username']); ?>
-            			</a>
-            			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp-2">
-            				<div class="row">
-            					<div class="col-md-12">
-            						<a class="enlacesDrop" href="perfil.php">Mi perfil</a><br>
+              
+              <span class="ml-auto navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php echo ($_SESSION['username']); ?>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp-2">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <a class="enlacesDrop" href="perfil.php">Mi perfil</a><br>
                                     <a class="enlacesDrop" href="cerrarsesion.php">Cerrar sesión</a>
-            					</div>
-            				</div>
-            			</div>
-            		</li>
-            	</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </span>
 
-        	</div>
-    	</div>
-	</nav>
+          </div>
+      </div>
+  </nav>
 
 
     <div class="bg-image img1"></div>
