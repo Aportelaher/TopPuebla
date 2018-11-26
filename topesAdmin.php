@@ -165,7 +165,7 @@ body, html {
                                   <td><img src = Topes/<?php echo "$im";?> width=200 height=150/></td> 
                                   <td><?php echo "$des"; ?></td>
                                   <td><a href="editarTope.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/editar.png"></a></td>
-                                  <td><a href="eliminarReporte.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/eliminar.png"></a></td>
+                                  <td><a href="eliminarTope.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/eliminar.png"></a></td>
                                 </tr>
                                 <?php
 
