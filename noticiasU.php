@@ -28,7 +28,7 @@ body, html {
 
 .bg-image {
   /* Full height */
-  height: 125%; 
+  height: 100%; 
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -37,17 +37,14 @@ body, html {
 }
 
 /* Images used */
-.img1 { background-image: url("img/taco.jpg"); }
-.img2 { background-image: url("img/ArrozNegroYLechedeNueces-AlexAtala.png"); }
-.img3 { background-image: url("img/CaminataEnElBosque-DominiqueCrenn.png"); }
-.img4 { background-image: url("img/MoleMadre-EnriqueOlvera.png"); }
+.img1 { background-image: url("img/Puebla10.jpg"); }
 
 
 /* Position text in the middle of the page/image */
 .bg-text {
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.8); /* Black w/opacity/see-through */
-  color: white;
+  background-color: rgba(0,0,0, 0.3); /* Black w/opacity/see-through */
+  color: black;
   font-weight: bold;
   font-size: 80px;
   border: 10px solid #f1f1f1;
@@ -60,6 +57,8 @@ body, html {
   padding: 20px;
   text-align: center;
 }
+
+
 </style>
     
 </head>
@@ -111,24 +110,37 @@ body, html {
     </nav>
 
     <div class="bg-image img1">
+      <br><br>
     <div class="container registro">
         <div class="row">
             <div class="col-md-12">
-                <h3>Noticias</h3>
+                <h1 align="center" style="color:white;">Noticias</h1>
+            </div>
+        </div>
+        <div class="row custom justify-content-center">
+            <div class="col-md-12">
                 <?php
                     require_once 'config.php';
                     require_once 'conexion.php';
+
                     $base = new dbmysqli($hostname,$username,$password,$database);
-                    $query="SELECT id_noticia, titulo, descripcion FROM noticia";
+                    $query="SELECT id_noticia, titulo, descripcion FROM Publicacion";
                     $result = $base->ExecuteQuery($query);
                     if($result){
-                        while ($row=$base->GetRows($result)){
+                        while ($row=$base->GetRows($result))
+                        {
                             $id_noticia  = $row[0];
                             $titulo = $row[1];
                             $descripcion = $row[2];
                             ?>
-                            <a class="enlace-noticia" href="verNoticiaU.php?id_noticia=<?php echo ($id_noticia) ?>"><?php echo ($row['1']) ?></a><br>
+                              <center>
+                              <div class="form-group">
+                                  <label for="mail"><a class="enlace-noticia" href="verNoticiaU.php?id_noticia=<?php echo ($id_noticia) ?>"><span><?php echo ($row['1']) ?></span></a><br></label>
+                              </div>
+                            </center>
                             <?php
+
+
                         }
                         $base->SetFreeResult($result);
                     }else{
@@ -138,7 +150,7 @@ body, html {
             </div>
         </div>
     </div>
-</div>
+  </div>
 	<script src="dist/jquery/jquery.slim.min.js"></script>
 	<script src="dist/js/bootstrap.min.js"></script>
 	<script src="dist/popper/umd/popper.min.js"></script>
