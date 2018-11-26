@@ -73,7 +73,7 @@ body, html {
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                    <li class="nav-item">
-                      <a class="nav-link scroll-link" href="crearPublicacion.php">Topes</a>
+                      <a class="nav-link scroll-link" href="topesAdmin.php">Topes</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link scroll-link" href="ReporteAdmin.php">Reportes</a>

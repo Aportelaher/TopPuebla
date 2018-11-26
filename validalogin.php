@@ -10,8 +10,10 @@
 	$usuariobuscar = array("correo","$mail");
 	$query="SELECT* FROM usuario WHERE correo = '$mail'";
 	$result = $base->ExecuteQuery($query);
+
 	if($result)
 	{
+
 		if ($row=$base->GetRows($result))
 		{
 			echo "El usario esta registrado\n<br>";
@@ -40,14 +42,11 @@
 			}
 			else
 			{
-				echo "Contraseña incorrecta";
 				header("Location:indexerror.php");
 			}
 		}
 		$base->SetFreeResult($result);
 	}
-	else
-	{
-		echo "<h3>Error generando la consulta</h3>";
-	}
+
+
 ?>
