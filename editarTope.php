@@ -8,8 +8,6 @@
         }
     }
 ?>
-
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -24,7 +22,6 @@ body, html {
   height: 100%;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  color: white;
 }
 
 * {
@@ -74,7 +71,7 @@ body, html {
 </style>
 </head>
 <body onload="initialize();">
-    <!-- Top menu -->
+ <!-- Top menu -->
     <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
         <div class="container">
             <a class="navbar-brand" href="indexAdmin.php">TopPuebla</a>
@@ -122,102 +119,122 @@ body, html {
 <div>
 
     <br><br>
-    <h1 align="center" style="color:white;">Localización de los Reportes de Topes</h1>
+    <h1 align="center" style="color:white;">Seleccione la Localización del Tope</h1>
 
     <div id="map_canvas" style="width: auto; height: 300px;">
     </div>
 </div>
-<center>
-  <table border="20">
-  <tr>
-    <td>Letra</td>
-    <td>Calle</td>>
-    <td>Colonia</td>
-    <td>Imagen</td>
-    <td>Descripcion</td>
-    <td>Aceptar</td>
-    <td>Eliminar</td>
-  </tr>
-    <?php
-      require_once 'config.php';
-                            $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
-                            mysqli_select_db($link, $database); 
 
-                            $result = mysqli_query($link, "select * from Reporte");
-                            $letras = 65;
 
-                            while($row= mysqli_fetch_array($result))
-                            {
-                                $lat = $row["Latitud"];
-                                $long = $row["Longitud"];
-                                $col = $row["Colonia"];
-                                $calle = $row["Calle"];
-                                $im = $row["Imagen"];
-                                $des = $row["Descripcion"];
-                                $letra = chr($letras);
-                                $id_reporte = $row['NoRep'];
-                                ?>
-                                <tr>
-                                  <td><?php echo "$letras"; ?></td>
-                                  <td><?php echo "$calle"; ?></td>
-                                  <td><?php echo "$col"; ?></td>
-                                  <td><img src = Topes/<?php echo "$im";?> width=200 height=150/></td> 
-                                  <td><?php echo "$des"; ?></td>
-                                  <td><a href="aceptarReporte.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/check.png"></a></td>
-                                  <td><a href="eliminarReporte.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/eliminar.png"></a></td>
-                                </tr>
-                                <?php
+    <div class="container registro">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="text-align: center;">Agrega la Información del Tope</h2>
+            </div>
+        </div>
+        <?php
+            $id_reporte = $_GET['id_reporte'];
+            require_once 'config.php';
+            require_once 'conexion.php';
+            $base = new dbmysqli($hostname,$username,$password,$database);
+            $query="SELECT * FROM tope where id_tope = $id_reporte";
+            $result = $base->ExecuteQuery($query);
+            echo "$query";
+            if($result)
+            {
+                if ($row=$base->GetRows($result))
+                {            $id_usuario = $row['1'];
+            $Calle = $row['2'];
+            $Latitud = $row['3'];
+            $Longitud = $row['4'];
+            $Colonia = $row['5'];
+            $Imagen = $row['6'];
+            $Descripcion = utf8_encode($row['7']);
+            $base->SetFreeResult($result);
+        }else
+        {
+            echo "<h3>Error generando la consulta</h3>";
+        }
+    }
+        ?>
 
-                                $letras = $letras+1;
-
-                            }
-
-                            echo ("</table>");
-
-                            mysqli_free_result($result);
-                            mysqli_close($link);
-                            //update pelicula set imagen=('/imagen6.jpg') where id_pelicula=6;
-                        ?>
-</center>
+        <div class="row ingredientes">
+            <div class="col-md-12">
+                <form method="POST" action="RevisionTope.php" enctype="multipart/form-data" autocomplete="off">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Latitud</label>
+                                    <input type="text" class="form-control" name="latitud" id="txtLatitud"  required value="<?php echo "$Latitud"; ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Longitud</label>
+                                    <input id="txtLongitud" type="text" class="form-control" name="longitud" required value="<?php echo "$Longitud"; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="nombre">Calle</label>
+                                    <input type="text" class="form-control" name="calles" id="calle" placeholder="Calle" required value="<?php echo "$Calle" ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="nombre">Colonia</label>
+                                    <input type="text" class="form-control" name="colonias" id="Colonia"placeholder="Colonia" required value="<?php echo "$Colonia" ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Descripción</label>
+                                    <textarea class="form-control" rows="5" name="descripciones" id="descripcion" required><?php echo "$Descripcion" ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Imagen</label>
+                                    <br>
+                                        <input type="file" name="archivo" value="<?php echo "$Imagen" ?>">
+                                </div>
+                            </div>
+                        </div>
+                    <br><button type="submit" class="btn btn-primary">Editar Tope</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
 // Initialize and add the map
-function initialize() 
-{
+function initialize() {
             // Creating map object
-            var map = new google.maps.Map(document.getElementById('map_canvas'), 
-            {
-                zoom: 15,
+            var map = new google.maps.Map(document.getElementById('map_canvas'), {
+                zoom: 17,
                 center: new google.maps.LatLng(19.005641, -98.204317),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-
             // creates a draggable marker to the given coords
-
-            var markers = locations.map(function(location, i) 
-            {
-                return new google.maps.Marker(
-                {
-                    position: location,
-                    label: labels[i % labels.length]
-                    }
-                );
+            var vMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(19.005641, -98.204317),
+                draggable: true
             });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      
-
-
 
             // adds a listener to the marker
             // gets the coords when drag event ends
             // then updates the input with the new coords
-            google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+            google.maps.event.addListener(vMarker, 'dragend', function (evt) 
+            {
                 $("#txtLatitud").val(evt.latLng.lat().toFixed(6));
                 $("#txtLongitud").val(evt.latLng.lng().toFixed(6));
 
@@ -229,21 +246,8 @@ function initialize()
 
             // adds the marker on the map
             vMarker.setMap(map);
-            }
-
-            var locations = 
-                    [
-                        {lat: 19.0057767, lng: -98.2049665},
-                        {lat: 19.0042031, lng: -98.1947903},
-                        {lat: 19.0028511, lng: -98.1950426},
-                        {lat: 19.0021116, lng: -98.1964312},
-                        {lat: 19.003356, lng: -98.1991288},
-                    ]
-
+        }
     </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxe7Nb-cGjLAbUOOX61xW9M1P1_7k7qk&callback=initMap">
     </script>

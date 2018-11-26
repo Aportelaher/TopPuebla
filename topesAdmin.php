@@ -135,7 +135,7 @@ body, html {
     <td>Colonia</td>
     <td>Imagen</td>
     <td>Descripcion</td>
-    <td>Aceptar</td>
+    <td>Editar</td>
     <td>Eliminar</td>
   </tr>
     <?php
@@ -143,7 +143,7 @@ body, html {
                             $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
                             mysqli_select_db($link, $database); 
 
-                            $result = mysqli_query($link, "select * from Reporte");
+                            $result = mysqli_query($link, "select * from tope");
                             $letras = 65;
 
                             while($row= mysqli_fetch_array($result))
@@ -153,9 +153,10 @@ body, html {
                                 $col = $row["Colonia"];
                                 $calle = $row["Calle"];
                                 $im = $row["Imagen"];
-                                $des = $row["Descripcion"];
+                                $des = $row["Desripcion"];
                                 $letra = chr($letras);
-                                $id_reporte = $row['NoRep'];
+                                $id_reporte = $row['id_tope'];
+
                                 ?>
                                 <tr>
                                   <td><?php echo "$letras"; ?></td>
@@ -163,7 +164,7 @@ body, html {
                                   <td><?php echo "$col"; ?></td>
                                   <td><img src = Topes/<?php echo "$im";?> width=200 height=150/></td> 
                                   <td><?php echo "$des"; ?></td>
-                                  <td><a href="aceptarReporte.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/check.png"></a></td>
+                                  <td><a href="editarTope.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/editar.png"></a></td>
                                   <td><a href="eliminarReporte.php?id_reporte=<?php echo "$id_reporte" ?>"><img src="img/eliminar.png"></a></td>
                                 </tr>
                                 <?php
