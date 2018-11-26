@@ -9,7 +9,7 @@
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Uel Uelik</title>
+	<title>TopPuebla</title>
 	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -97,7 +97,7 @@ body, html {
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp-2">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="enlacesDrop" href="perfil.php">Mi perfil</a><br>
+                                    <a class="enlacesDrop" href="perfilU.php">Mi perfil</a><br>
                                     <a class="enlacesDrop" href="cerrarsesion.php">Cerrar sesión</a>
                                 </div>
                             </div>

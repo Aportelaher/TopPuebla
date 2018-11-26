@@ -102,7 +102,7 @@ body, html {
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="login-dp-2">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="enlacesDrop" href="perfil.php">Mi perfil</a><br>
+                                    <a class="enlacesDrop" href="perfilU.php">Mi perfil</a><br>
                                     <a class="enlacesDrop" href="cerrarsesion.php">Cerrar sesión</a>
                                 </div>
                             </div>
@@ -123,30 +123,42 @@ body, html {
     </div>
 </div>
 <center>
+  <table border="20">
+  <tr>
+    <td>Letra</td>
+    <td>Calle</td>>
+    <td>Colonia</td>
+    <td>Imagen</td>
+    <td>Descripcion</td>
+  </tr>
     <?php
-                            $link=mysqli_connect("localhost", "root", "12345");//Query de la base de Datos
-                            mysqli_select_db($link, "TopPuebla"); 
+      require_once 'config.php';
+                            $link=mysqli_connect($hostname, $username, $password);//Query de la base de Datos
+                            mysqli_select_db($link, $database); 
 
-                            $result2 = mysqli_query($link, "select * from Reporte");
-
-                            echo "<table border = 20>";
-                            echo ("<tr><td>Letra</td><td> Calle </td><td> Colonia </td><td> Imagen </td><td> Descripcion</td></tr>");
-
+                            $result = mysqli_query($link, "select * from Tope");
                             $letras = 65;
 
-                            while($row= mysqli_fetch_array($result2))
+                            while($row= mysqli_fetch_array($result))
                             {
                                 $lat = $row["Latitud"];
                                 $long = $row["Longitud"];
                                 $col = $row["Colonia"];
                                 $calle = $row["Calle"];
                                 $im = $row["Imagen"];
-                                $des = $row["Descripcion"];
-
+                                $des = $row["Desripcion"];
                                 $letra = chr($letras);
+                                $id_reporte = $row['id_tope'];
 
-                                echo ("<tr><td>$letra</td><td> $calle </td><td> $col </td><td> 
-                                        <img src = Topes/$im width=200 height=150/></td><td>$des</td></tr>");
+                                ?>
+                                <tr>
+                                  <td><?php echo "$letras"; ?></td>
+                                  <td><?php echo "$calle"; ?></td>
+                                  <td><?php echo "$col"; ?></td>
+                                  <td><img src = Topes/<?php echo "$im";?> width=200 height=150/></td> 
+                                  <td><?php echo "$des"; ?></td>
+                                </tr>
+                                <?php
 
                                 $letras = $letras+1;
 
@@ -154,7 +166,7 @@ body, html {
 
                             echo ("</table>");
 
-                            mysqli_free_result($result2);
+                            mysqli_free_result($result);
                             mysqli_close($link);
                             //update pelicula set imagen=('/imagen6.jpg') where id_pelicula=6;
                         ?>

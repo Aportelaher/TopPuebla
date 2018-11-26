@@ -52,7 +52,7 @@
                                              <label class="sr-only" for="pass">Contraseña</label>
                                              <input type="password" class="form-control" name="pass" id="pass" placeholder="Contraseña" required>
                                         </div>
-                                        <span class="error">Usuario o contraseña incorrecto</span>
+                                        <span class="error">Correo no Registrado</span>
                                         <div class="form-group">
                                              <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                                         </div>
