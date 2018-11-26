@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 26-11-2018 a las 03:44:52
+-- Tiempo de generación: 26-11-2018 a las 04:38:39
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 7.2.7
 
@@ -24,6 +24,7 @@ USE `TopPuebla`;
 
 DROP TABLE IF EXISTS `Publicacion`;
 CREATE TABLE IF NOT EXISTS `Publicacion` (
+  `id_usuario` int(30) NOT NULL,
   `id_noticia` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(15) DEFAULT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
