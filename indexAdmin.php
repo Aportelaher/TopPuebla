@@ -12,7 +12,7 @@
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Uel Uelik</title>
+	<title>TopPuebla</title>
 	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
@@ -84,7 +84,7 @@ body, html {
 	                    <a class="nav-link scroll-link" href="crearPublicacion.php">Realizar Publicación</a>
                 	</li>
                   <li class="nav-item">
-                      <a class="nav-link scroll-link" href="agregaAdmin.php">Usuarios</a>
+                      <a class="nav-link scroll-link" href="Usuarios.php">Usuarios</a>
                   </li>
             	</ul>
 
